@@ -1,12 +1,16 @@
 package main
 
 import (
-  "fmt"
-  "os"
+	"context"
+	"fmt"
+	"os"
+
+	"github.com/google/go-github/v50/github"
+	"github.com/liamg/antispam-action/pkg/antispam"
 )
 
 func main() {
- 	eventType := os.Getenv("GITHUB_EVENT_NAME")
+	eventType := os.Getenv("GITHUB_EVENT_NAME")
 	var eventData []byte
 	if path := os.Getenv("GITHUB_EVENT_PATH"); path != "" {
 		var err error
@@ -17,7 +21,21 @@ func main() {
 	} else {
 		fail(fmt.Errorf("event data is required"))
 	}
- 	fmt.Println(eventType, string(eventData))
+
+	ctx := context.Background()
+	client := github.NewTokenClient(ctx, os.Getenv("ACTIONS_RUNTIME_TOKEN"))
+	a := antispam.New(ctx, client)
+
+	switch eventType {
+	case "pull_request":
+		if err := a.ProcessPullRequest(eventData); err != nil {
+			fail(err)
+		}
+	case "issues":
+		if err := a.ProcessIssue(eventData); err != nil {
+			fail(err)
+		}
+	}
 }
 
 func fail(err error) {

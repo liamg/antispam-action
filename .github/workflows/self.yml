@@ -2,6 +2,10 @@ name: antispam
 
 on: [issues, pull_request]
 
+permissions:
+  pull-requests: write
+  issues: write
+
 jobs:
   build:
     name: Antispam
@@ -9,3 +13,4 @@ jobs:
 
     steps:
       - uses: liamg/antispam-action@main
+
