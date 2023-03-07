@@ -9,7 +9,8 @@ func main() {
  	eventType := os.Getenv("GITHUB_EVENT_NAME")
 	var eventData []byte
 	if path := os.Getenv("GITHUB_EVENT_PATH"); path != "" {
-		eventData, err := os.ReadFile(path)
+		var err error
+		eventData, err = os.ReadFile(path)
 		if err != nil {
 			fail(fmt.Errorf("failed to read event data: %w", err))
 		}
