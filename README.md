@@ -2,7 +2,7 @@
 
 GitHub action to automatically close spam issues and pull requests.
 
-Currently I use this to close PRs from Russian bots on [traitor](https://gitrhub.com/liamg/traitor).
+Currently I use this to close PRs from Russian bots on [traitor](https://github.com/liamg/traitor).
 
 ## Usage
 
