@@ -4,7 +4,7 @@ on: [issues, pull_request]
 
 jobs:
   build:
-    name: Create GHCR release
+    name: Antispam
     runs-on: ubuntu-latest
 
     steps:
