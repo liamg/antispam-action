@@ -1,5 +1,7 @@
 package main
 
-func main() {
+import "os"
 
+func main() {
+  fmt.Println(os.Environ())
 }
