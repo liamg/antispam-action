@@ -1,7 +1,27 @@
 # antispam-action
 
-GitHub action to autoclose spam issues + PRs
+GitHub action to automatically close spam issues and pull requests.
 
-Includes built-in rules for spam detection as well as the ability to define your own rules using the action yaml.
+Currently I use this to close PRs from Russian bots on [traitor](https://github.com/liamg/traitor).
 
-test
+## Usage
+
+Add the following to `.github/workflows/antispam.yml` in your repository:
+
+```
+name: antispam
+
+on: [issues, pull_request]
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  build:
+    name: Antispam
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: liamg/antispam-action@1
+```
